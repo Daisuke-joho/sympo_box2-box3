@@ -1,0 +1,715 @@
+\documentclass[twocolumn, 9pt]{jsproceedings}
+\RequirePackage[l2tabu, orthodox]{nag}  % 古いコマンドやパッケージを使用した場合に警告する
+\usepackage[all, warning]{onlyamsmath}  % amsmath が提供しない数式環境を使用した場合に警告する
+\usepackage{flushend}  % 最終ページの2カラムの左右の高さを揃える
+
+
+\usepackage{otf}
+\usepackage[ipa]{pxchfon}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[dvipdfmx,setpagesize=false]{hyperref}
+
+
+
+% タイトル
+\title{つくばチャレンジ 2023 における\\千葉工業大学未来ロボティクス学科 box2，box3チームの取り組み}
+
+\author{○今井 悠月，井口 颯人，樋高 聖人，春山 健太，藤原 柾，\CID{8705}橋 祐樹，白須 和暉，野村 駿斗，
+望月 悠矢，\\馬場 琉生，村林 孝太郎，桜井 真希，中村 雄一，長島 昂生，\\上田 隆一，林原 靖男（千葉工大）}
+
+\etitle{The activities of the Advanced Robotics Department box2 and box3 team of Chiba Institute of Technology in the Tsukuba Challenge 2023}
+
+\eauthor{Yuzuki IMAI, Hayato IGUCHI, Masato HIDAKA, Kenta HARUYAMA, Masaki FUJIWARA, \\Yuki TAKAHASHI,
+ Kazuki SHIRASU, Hayato NOMURA, Yuya MOCHIZUKI, Ryusei BABA, \\Kotaro MURABAYASHI, Maki SAKURAI,
+ Yuichi NAKAMURA, Kousei NAGASHIMA, \\Ryuichi UEDA and Yasuo HAYASHIBARA (CIT)}
+
+\affiliation{千葉工業大学未来ロボティクス学科 box2, box3チーム}
+
+\abstract{
+  In this paper, we present the activities of the Advanced Robotics Department box2 and box3 team of 
+  Chiba Institute of Technology in the Tsukuba Challenge 2023. 
+  We developed autonomous outdoor mobile robots, and we tackled several challenges. 
+  For example, We developed robots using machine learning and robots that can run in the rain.
+}
+
+\hypersetup{
+%  bookmarksnumbered=true,
+%  bookmarksopen=true,
+ colorlinks=true,
+ linkcolor=black,
+ citecolor=black,
+ urlcolor=black
+}
+
+\begin{document}
+\maketitle
+
+% 本文
+\section{緒言}
+我々は，屋外でも正確に自律移動可能なロボットを目指し，その研究および開発の一環として
+つくばチャレンジに参加している．
+これまで本研究室\footnote{千葉工業大学未来ロボティクス学科 林原研究室}では，地図生成や自己位置推定を
+中心に研究開発を行ってきた．近年では，防水機能や高い拡張性を有したオープンプラットフォームのロボットの
+開発も行っている．
+つくばチャレンジ2022では，開発したロボットやシステムを用いて，記録走行において完走した．
+しかし，本年度からは確認走行エリアのコースが一部変更され，つくば市役所の外周がコースに含まれるように
+なった．そのため，従来用いていた 30 m 程度の 2次元レーザレンジセンサ 1つでは，低層の茂みや障害物などを
+検出しつつ，安定して自己位置推定を行うのが困難であると考えられた．
+さらに，道幅の狭い経路を通る必要があるため，確認走行エリアを走破するには，
+よりロバストなシステムが求められるようになった．
+本稿では，このような問題を解決するためにつくばチャレンジ2023に向けて取り組んだ内容を紹介する．
+
+\section{開発したロボット}
+ロボットを常に屋外環境で走行させるためには，防水設計が求められる．ただし，防水性を担保しながら
+ロボットの機構や電気回路の追加・変更を行うことは，作業の負担が大きく，多くの時間を要するため，
+新たなアルゴリズムの開発や検証に十分な時間を割当てられないことが問題となっていた．
+
+この問題を踏まえて，本研究室では屋外自律移動ロボットプラットフォーム ORNE-boxの開発を行ってきた\cite{box}．
+日々検証と改良を重ねており，現在は，3台のロボット（ORNE-box，ORNE-box2，ORNE-box3）がある．
+これらのロボットは，屋外での自律走行を目的としており，屋外自律走行の研究開発に必要な機能をパッケージ化
+し，提供することを目標に開発を行っている．設計データなどは，ウェブページ上にて順次公開している\cite{box-data}．
+
+ORNE-box2 は，ORNE-box の問題点をリストアップし改善を図るという方針のもと，昨年度から開発を行っている．
+基本的なシステムは，ORNE-box と同じである．
+ORNE-box3 は，本年度から開発を行っており，ORNE-box2 の防水性能をさらに改善した設計となっている．
+
+\subsection{ハードウェア}
+ORNE-box-Series の外観を\figref{fig:orne-series}，仕様を\tableref{table:1}に示す．
+これらのロボットは，i-Cart middle\cite{icart} をベースとしている．
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=21.1mm]{fig/box.pdf}
+    \caption*{(a) ORNE-box}
+  \end{minipage} 
+  \hspace{-1.2mm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[height=34mm]{fig/box2.pdf}
+    \caption*{(b) ORNE-box2}
+  \end{minipage}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[height=34mm]{fig/box3.pdf}
+    \caption*{(c) ORNE-box3}
+  \end{minipage}
+  \caption{ORNE-box-Series}
+  \label{fig:orne-series}
+\end{figure}
+
+\vspace*{-8mm}
+
+\begin{table}[h!]
+  \centering
+    \caption{Specifications of the robots.}
+    \label{table:1}
+    \scalebox{0.73}{
+    \begin{tabular}{|l||c|c|c|}  \hline
+      & ORNE-box & ORNE-box2 & ORNE-box3 \\ \hline \hline
+      Depth[mm] & 589 & 608 & 621 \\ \hline
+      Width[mm] & 508.6 & 518.6 & 516.6\\ \hline
+      Height[mm] & 892.5 & 902 & 911\\ \hline
+      Weight[kg] & \multicolumn{3}{c|}{32}\\ \hline
+      Wheel diameter[mm] & \multicolumn{3}{c|}{304}\\ \hline
+      Battery & \multicolumn{3}{c|}{LONG WP14-12SE}\\ \hline
+      Motor & \multicolumn{3}{c|}{Oriental motor TF-M30-24-3500-G15L/R}\\ \hline
+      Driving system & \multicolumn{3}{c|}{Power wheeled steering}\\ \hline
+      2D-LiDAR & None &  UTM-30LX-EW & None\\
+      & & (HOKUYO) & \\ \hline
+      3D-LiDAR & None & \multicolumn{2}{c|}{R-fans-16} \\
+      & & \multicolumn{2}{c|}{(SureStar)}\\ \hline
+      IMU & ADIS16465 & ADIS16470 & None\\ 
+      & (Analog Devices) & (Analog Devices) & \\ \hline
+      Camera & None & \multicolumn{2}{c|}{CMS-V43BK}\\ 
+      & & \multicolumn{2}{c|}{(SANWA SUPPLY)}\\ \hline
+      Computer & None & Jetson AGX Xavier & Jetson Orin NX\\ 
+      & & (NVIDIA) & (NVIDIA)\\ \hline
+    \end{tabular}
+  }
+  \end{table}
+
+
+\subsection{ソフトウェア}
+本研究室では，従来より ROS(Robot Operating System)\cite{ros}のnavigation stack\cite{navigation}を基に開発された
+ソフトウェアであるorne\_navigation\cite{orne-navigation} と orne-box\cite{orne-box} により，ロボットを自律走行させている．
+\figref{fig:soft-fig}に開発したロボットのソフトウェアを含むシステム構成を示す．
+このシステムは，LiDARなど複数のセンサを用いた Monte Carlo Localization(MCL)により確率的に自己位置を推定し， 
+経路計画に基づいて自律走行する．なお，両ソフトウェアは GitHubのopen-rdc\cite{open-rdc} で公開している．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/software.pdf}
+  \caption{Structure of the system.}
+  \label{fig:soft-fig}
+\end{figure}
+
+\vspace*{2mm}
+
+\section{各ロボットごとの研究開発}
+本研究室では，使用するロボットごとに研究開発の目的が異なる．つくばチャレンジ2023においては，
+ORNE-box2を使用するチームとORNE-box3を使用するチームの2つに分かれて研究開発を行ってきた．
+以降，それぞれのチームをbox2チーム，box3チームと呼ぶこととする．
+本章では，各チームごとの取り組みを述べる．
+
+\subsection{box2チームの取り組み}
+% box2チームは，つくばチャレンジ2022において，記録走行で完走している．しかし，本走行では道路端で
+% 一時停止に失敗し，記録は 320[m]であった．一時停止失敗の原因としては，自己位置推定の破綻が挙げられる．
+% ORNE-box2では，本走行前日にロボットの制御に使用していたコンピュータである Jetson AGX Xavier が
+% 起動しなくなるトラブルが発生したため，急遽 GIGABYTE GB-BXi7H-4500 に交換を行っていた．
+% これにより計算が間に合わなかったおそれがある．
+
+% よって本年度は，基本的には昨年度と同じシステムを用いて完走することを目的とした．
+% なお，制御用のコンピュータには，記録走行完走時に用いていた Jetson AGX Xavier を使用した．
+% 本年度の取り組みを以下で紹介する．
+
+box2チームは，つくばチャレンジ2022の本走行に参加した．
+結果として，道路端で一時停止に失敗し，記録は320[m]だった．
+一時停止に失敗した要因のひとつとして，自己位置推定の破綻が挙げられる．
+ORNE-box2では，本走行前日にロボットの制御に使用していたコンピュータであるJetson AGX Xavierが
+起動しなくなるトラブルが発生した．そのため，急遽 GIGABYTE GB-BXi7H-4500 に交換を行った．
+これにより計算が間に合わなかった可能性がある．
+しかし，つくばチャレンジ2022の記録走行では制御用のコンピュータにJetson AGX Xavierを用いて完走した．
+よって，本年度は基本的に昨年度と同様のシステムを用いて完走することを目的とした．
+本年度の取り組みを以下で紹介する．
+
+\subsubsection{センサ・システム構成}
+box2チームは，\figref{fig:box2-sensor}のように LiDAR，ホイールエンコーダ，IMU，RGBカメラというセンサ構成で実験走行および本走行に臨んだ．
+特徴としては，2つの LiDAR を用いている点が挙げられる．
+上部は自己位置推定用，下部は障害物回避用と使い分けることで，自己位置推定を正確に行いつつ，
+低層の障害物などを検出して回避するという狙いがある．ここで，上部に取り付けた LiDAR は 3D-LiDAR であるが，
+pointcloud\_to\_laserscan\cite{pointcloud} により，得られた3次元点群を圧縮し，2次元の点群として利用した．
+また，ロボットの上部に取り付けたカメラは，選択課題 D1 に取り組む際に使用した．\\
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/box2_sensor.pdf}
+  \caption{The sensor configuration of the box2 team.}
+  \label{fig:box2-sensor}
+\end{figure}
+
+
+さらに，使用したパッケージやアルゴリズムを以下に示す．
+ロボットは，これらと作成した地図に基づき自律走行する．
+
+\begin{itemize}
+  \item 自己位置推定パッケージ：emcl2\cite{emcl2}
+  \item センサ情報統合パッケージ：robot\_localization\cite{robotlocalization}
+  \item waypoint パッケージ：waypoint\_manager\cite{waypoint}
+  \item global planner：dijkstra
+  \item local planner：TrajectoryPlannerROS
+  % \item map
+\end{itemize}
+
+
+\subsubsection{地図生成}
+自律走行時に使用する地図の作成には，Cartographer\cite{Cartographer}を用いた．
+ここで，本走行において使用した占有格子地図を\figref{fig:map}，\figref{fig:costmap}に示す．
+\figref{fig:map}は，自己位置推定に使用する地図であり，基本的には作成時のものから手を加えていない．
+\figref{fig:costmap}は，経路計画に用いる地図である．\figref{fig:map}の自己位置推定に用いる地図に
+侵入不可能な領域を設定している．これにより，ロボットは侵入不可能領域以外で
+経路を生成するようになる．さらに，領域を囲うことで，経路を計算する領域が減るため，
+コンピュータの負荷を減らすことができる．
+これらの地図は，確認走行エリア，その先から信号あり横断歩道，公園エリアのそれぞれで作成した
+地図を合成している．地図の合成や編集には，GIMP\cite{gimp}を用いた．
+なお，resolutionは 0.10[m/pixel]で，ファイルのサイズは 17.8 MBであった．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/map.pdf}
+  \caption{Map used for localization.}
+  \label{fig:map}
+\end{figure}
+\vspace*{-2mm}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/costmap.pdf}
+  \caption{Map used for planning.}
+  \label{fig:costmap}
+\end{figure}
+
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsubsection{選択課題 D1}
+box2チームでは，本年度から新しく追加された選択課題D1にも取り組んだ．
+ここで，課題の概要を述べる．本課題は以下の流れで行う．
+
+\vspace*{1mm}
+
+1）集荷ボックス\figref{fig:hako} (a)の待機列に整列
+
+2）白線を認識し，その手前 1[m]以内で一時停止
+
+3）オペレータ操作により走行再開
+
+4）集荷ボックスに50[cm]まで接近し，3秒以上停止
+
+5）配達先ラベルを認識し，90秒以内に移動
+
+6）指定の宅配ボックス\figref{fig:hako} (b)を探索
+
+7）指定の宅配ボックスに50[cm]まで接近し，3秒以上停止
+\begin{figure}[h!]
+  \begin{minipage}[t]{0.47\linewidth}
+    \centering
+    \includegraphics[width=44.94mm]{fig/syuuka.pdf}
+    \caption*{\hspace*{3mm}(a) Collection box}
+  \end{minipage}
+  \hspace*{2mm}
+  \begin{minipage}[t]{0.47\linewidth}
+    \centering
+    \includegraphics[width=44.21mm]{fig/takuhai.pdf}
+    \caption*{(b) Delivery box}
+  \end{minipage}
+  \caption{Examples of collection and delivery boxes. (source:\cite{tukuba})}
+  \label{fig:hako}
+\end{figure}\vspace*{-2mm}
+次に，本課題のために取り組んだ内容を以下に述べる．
+
+\begin{itemize}
+  \setlength{\leftskip}{-1zw}
+  \item 集荷ボックス，宅配ボックス，配達先の認識
+\end{itemize}
+\vspace*{-2.5mm}
+
+各ボックスや配達先の認識には，YOLOv5\cite{yolo}を用いた．YOLOは画像を入力とし，対象物が
+画像中のどこにあるかを表すバウンディングボックスと認識率を出力する．
+データセットは自作のものを使用した．作成したデータセットは\cite{nagashima}で公開している．
+作成の手順としては，まず ORNE-box2の上部に取り付けたカメラを使用し，公園内の配送エリアと
+千葉工業大学津田沼キャンパスで画像を収集した．
+次に，収集した画像にボックス 2つ(集荷，宅配)と配達先 3つ(a,b,c)の計5 クラスでラベル付けをした．
+合計2287個のデータセットを作成し，そのうちの2261個を訓練用，26個を検証用とした．
+訓練後は，訓練済みモデルを用いてボックスと配送先が認識できるかを検証した．
+ここで，検証結果の一例を\figref{fig:test1}，\figref{fig:test2}に示す．
+\figref{fig:test1}のように，屋内環境かつ近距離であれば，どちらも高い正確度で認識できた．
+しかし，\figref{fig:test2}の例では配達先を誤認識した．
+その要因としては\figref{fig:test1}の例に比べて，対象物とロボットの距離があることや，屋外の
+日照条件の変化によって，収集した画像との差が発生したことが考えられる．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/test1.pdf}
+  \caption{Recognition results in indoor.}
+  \label{fig:test1}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/test2.pdf}
+  \caption{Recognition results in real environment.}
+  \label{fig:test2}
+\end{figure}
+
+\begin{itemize}
+  \setlength{\leftskip}{-1zw}
+  \item ボックスに接近し，停止するシステムの作成
+\end{itemize}
+\vspace*{-2.5mm}
+
+配達先を認識した後の指定のボックスへの移動や接近して停止する処理に関して述べる．
+ロボットは\figref{fig:hako_act}に示すようなシステムに基づき行動する．
+本システムは，YOLOの配達先の認識結果に応じて行動を決定する．
+具体的には，配達先(a,b,c)すべてに waypointを配置し，認識した配達先以外の waypointはスキップする仕組みと
+なっている．
+ボックスへの接近は，指定の waypointに到達すると開始され，YOLOの出力であるバウンディングボックスの座標に
+基づき行われる．
+これは，ボックスが常にカメラ画像の中心に来るように速度指令値をロボットに送ることで行う．
+この速度指令はyolo\_velという名前のトピックで配信される．
+ボックスに近づいたと判断する指標は，LiDARの走査線である．
+配列中の特定の index の値がある一定値以下になったら，ロボットとボックスが 50[cm]近づいたと
+判断して停止する．
+ただし，ナビゲーションの起動中は，move\_baseに基づく速度指令であるnav\_velという名前のトピック
+が配信されている．よって，そのままでは速度指令が競合するため，どちらの速度指令を使用するかを
+twist\_mux\cite{twist}で判断し，cmd\_velという名前のトピックで配信している．
+ここで，本システムを用いた実験の様子を\figref{fig:action}に示す．
+結果的に，集荷ボックスを発見して 50[cm]以内で停止できたが，
+走行再開後に宅配ボックスの認識が途切れたため，ロボットがその場で旋回し続けた．
+その対策としては，認識が途切れてから数秒以内は行動を続けるというデッドタイムを設ける方法が考えられる．
+なお，本システムは検証段階であったため，本走行では使用していない．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/act.pdf}
+  \caption{Summary of the developed system.}
+  \label{fig:hako_act}
+\end{figure}
+
+\vspace*{-1zh}
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=37mm]{fig/1.pdf}
+    \caption*{(a) Found the box}
+  \end{minipage} 
+  \hspace*{2mm}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[height=27.4mm]{fig/3.pdf}
+    \caption*{\hspace*{-1mm}(b) Stop near the box}
+  \end{minipage}
+  \caption{Verification of the developed system.}
+  \label{fig:action}
+\end{figure}
+
+
+
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+\subsubsection{本走行の結果}
+box2チームの本年度の本走行の記録は，715[m]であった．
+リタイアした地点は，公園前の信号機あり横断歩道である．
+\figref{fig:box2-result}に示すように，本来は一時停止が必要な場所で，ロボットが道路端からはみ出した．
+その要因としては，自己位置推定の破綻が挙げられる．信号機周辺は他チームのロボットや通行人，自動車など，
+環境がその都度大きく変化するため，作成した地図とマッチングしない，あるいは間違った場所でのマッチング
+が起こったのではないかと考えられる．
+なお box2チームは，8月18日に実施されたつくばチャレンジ2023EX＠イーアスつくば本走行にて完走している．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/result_box2_cut.pdf}
+  \caption{The location where the box2 team failed.}
+  \label{fig:box2-result}
+\end{figure}
+
+\subsection{box3チームの取り組み}
+2.2節でも述べたように，本研究室では従来より ROS を用いたロボットの自律走行システムを開発してきた．
+ただし，開発したシステムは ROS 1 で構成されており，
+ROS 1は，Noetic\cite{noetic} のリリースを最後に2025年で開発サポートが終了する．
+開発サポートが終了すると，新しいソフトウェアとの互換性がなくなるため，
+早急に従来の ROS 1 のシステムを ROS 2 \cite{ros2}のシステムへ移行することが必要である．
+よって，box3 チームは従来の ROS 1 のシステムを ROS 2に移行し，ロボットを信号付近まで自律走行させること
+を目標とした．本年度の取り組みを以下で紹介する．
+
+\subsubsection{システムの開発環境}
+ORNE-box3 では，制御コンピュータに Jetson Orin NX を用いている．
+Jetson の OS である JetPack\cite{JetPack}は，現行のものでは，Ubuntu 20.04\cite{ubuntu} がベース
+となっており，それに対応する ROS 2 のバージョンは Foxy\cite{foxy} である．しかし，Foxy では ROS 2 の
+トピックを可視化するツールである Rviz2\cite{rviz2} のバグ\cite{rviz-bag}があることや，
+Nav2\cite{nav2} の機能が制限されること，サポート期限が間近に迫っていることなどの問題があった．
+
+これらの問題を解決するため，開発環境をネイティブからDocker\cite{Docker}へ移行した．
+これにより，ネイティブでは使用できなかった Foxy 以降のバージョンが使用可能となった．
+また，Dockerではイメージごとバックアップできるため，不測の事態に対してもシステムの復旧が容易であった．
+本チームは Docker 環境を用いて ROS 2 Humble\cite{humble}で開発を行った．
+
+
+\subsubsection{センサ・システム構成}
+box3 チームは，\figref{fig:box3-sensor}のように LiDAR，ホイールエンコーダ，RGBカメラという
+センサ構成で実験走行および本走行に臨んだ．box2 チームと異なり，用いたLiDAR は 1 つである．
+ロボットの上部に取り付けたカメラは，信号認識に使用した．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/box3_sensor.pdf}
+  \caption{The sensor configuration of the box3 team.}
+  \label{fig:box3-sensor}
+\end{figure}
+
+
+さらに，自律走行時のシステムを\figref{fig:box3-system}に示す．
+ロボットは，これらのパッケージと\figref{fig:3-map}に示す地図を用いて自律走行する．
+具体的には，3D-LiDAR である R-Fans から得られた3次元点群を pointcloud\_to\_laserscan により
+2次元点群に圧縮する．これは scan という名前のトピックで配信され，
+ホイールオドメトリである odom の情報と併用して amcl\cite{amcl} によって自己位置推定をする．
+その結果に基づき，予め設定した waypoint へと向かう経路を NavFn\cite{navfn} で生成する．
+ロボットはこの経路に従って移動するが，速度指令は cmd\_vel という名前のトピックで配信される．
+cmd\_vel の受取先は，移動ロボットのモーション制御ソフトウェアの ypspur\cite{ypspur} を基にした 
+icart drive\cite{icart_driver} である．
+なお，box3 チームは ROS 2 で開発を行うが，ROS 1 と ROS 2 には互換性がない．
+つまり，本研究室が従来から開発してきた ROS 1 のパッケージを含むシステムをそのまま使用することはできない．
+この問題の解決策として ros1\_bridge\cite{bridge} の使用が挙げられる．
+これは，ROS 2 環境でROS 1 パッケージの使用を可能とするものである．
+しかし，ターミナル操作が煩雑となり，システムの起動に時間を要することや，通信速度の低下が懸念された．
+よって，不足しているパッケージやノードは本チームで開発した． 
+\figref{fig:box3-system}の青色で示すものが自作のパッケージやノードである．
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=90mm]{fig/box3_system.pdf}
+  \caption{Summary of the system during autonomous driving.}
+  \label{fig:box3-system}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{fig/3-map.pdf}
+  \caption{Map created by box3 team. (for planning)}
+  \label{fig:3-map}
+\end{figure}
+
+\subsubsection{信号認識}
+box3 チームでは，信号認識にも取り組んだ．
+信号の認識には，先述の選択課題 D1 と同様に YOLOv5を用いた．
+データセットには自作のものを使用した．
+作成の手順としては，まず ORNE-box3の上部に取り付けたカメラを使用し，公園前の信号機あり横断歩道で
+画像を収集した．次に，収集した画像に信号の色 2つ(青，赤)の2 クラスでラベル付けをした．
+合計600個のデータセットを作成し，そのうちの523個を訓練用，77個を検証用とした．
+訓練後は，訓練済みモデルを用いて信号の色が認識できるかを検証した．
+ここで，検証結果の一例を\figref{fig:traffic}に示す．
+結果的に，青信号と赤信号のどちらも高い正確度で認識できた．
+ただし，認識後のロボットの行動プログラムは開発していなかったため，実験走行および本走行では使用していない．
+
+
+\begin{figure}[h!]
+  \begin{minipage}[t]{0.47\linewidth}
+    \centering
+    \includegraphics[width=43mm]{fig/blue_cut.pdf}
+    \caption*{(a) Blue light (traffic)}
+  \end{minipage}
+  \hspace*{2mm}
+  \begin{minipage}[t]{0.47\linewidth}
+    \centering
+    \includegraphics[width=43mm]{fig/red_cut.pdf}
+    \caption*{(b) Red light (traffic)}
+  \end{minipage}
+  \caption{Recognition results in real environment.}
+  \label{fig:traffic}
+\end{figure}
+
+\subsubsection{本走行の結果}
+box3の本走行の記録は13[m]だった．
+リタイアした地点は，確認走行エリアのスタート直後の直線である．
+ここで，当時の周囲の状況を\figref{fig:box3-human}に示す．
+このようにロボットの前方には人がいたため，ロボットがその場で
+停止した (\figref{fig:box3-result-1}) ．
+その後，前の人が進み，ロボットの前方のコストが消えて移動を始めようとした (\figref{fig:box3-result-2}) ． 
+しかし，周囲の人だかりと植木が誤ってマッチングしたため，
+進入禁止エリアに自己位置が飛んだ (\figref{fig:box3-result-3}) ．
+これによって，経路追従行動を継続できなくなった．
+自己位置推定の破綻は，ホイールオドメトリが正確ではないため，スキャンのデータの信頼度を大きくしていたことも
+要因のひとつであると考えられる．
+解決策としては，IMU を搭載し，複数のセンサの情報を統合することが挙げられる．
+なお，記録走行の最長記録は431[m]であり，確認走行エリアは走破している．
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{fig/human.pdf}
+  \caption{The location where the box3 team failed.}
+  \label{fig:box3-human}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{fig/box3_1.pdf}
+  \caption{Robot recognizes person in front and stops.}
+  \label{fig:box3-result-1}
+\end{figure}
+
+\vspace*{2mm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{fig/box3_2.pdf}
+  \caption{Resume moving as the previous person is gone.}
+  \label{fig:box3-result-2}
+\end{figure}
+
+\vspace*{2mm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=90mm]{fig/box3_3.pdf}
+  \caption{Failed to localize.}
+  \label{fig:box3-result-3}
+\end{figure}
+
+\vspace*{3mm}
+
+\section{結言}
+本稿では，千葉工業大学未来ロボティクス学科 box2，box3チームで開発したロボットとシステムの構成に
+関して述べた．また，つくばチャレンジ2023に向けた取り組みについて紹介した．
+結果的に，本走行では複合的な要因により，両チーム完走できなかったが，記録走行では
+確認走行エリアを走破した．
+
+\vspace*{12.3mm}
+
+
+\section*{謝辞}
+つくばチャレンジ実行委員会の皆様，並びにつくば市の皆様に感謝申し上げます．また，
+つくばチャレンジ2023の参加にあたり，ご意見やご協力をいただいた上田研究室の皆様に感謝申し上げます．
+
+\newpage
+
+% 参考文献
+% \small
+\footnotesize
+\begin{thebibliography}{99}
+\bibitem{box}
+井口 颯人, 石江 義規, 樋高 聖人, 上田 隆一, 林原 靖男　: “ 屋外自律移動ロ
+ボットプラットフォーム ORNE-box の開発 ”, 3H2-03 , SI2021(2021)
+
+\bibitem{box-data}
+open-rdc, orne-box, wiki\\
+\url{https://github.com/open-rdc/orne-box/wiki}\\
+(最終閲覧日：\today)
+
+\bibitem{icart}
+T-frog Project\\
+\url{https://t-frog.com/forums/forum.php?ml=icart-mini-devel}\\
+(最終閲覧日：\today)
+
+\bibitem{ros}
+ROS wiki, ROS\\
+\url{https://wiki.ros.org/ja}\\
+(最終閲覧日：\today)
+
+\bibitem{navigation}
+ros-planning, navigation リポジトリ\\
+\url{https://github.com/ros-planning/navigation}\\
+(最終閲覧日：\today)
+
+\bibitem{orne-navigation}
+open-rdc, orne\_navigation リポジトリ\\
+\url{https://github.com/open-rdc/orne_navigation}\\
+(最終閲覧日：\today)
+
+\bibitem{orne-box}
+open-rdc, orne-box リポジトリ\\
+\url{https://github.com/open-rdc/orne-box}\\
+(最終閲覧日：\today)
+
+\bibitem{open-rdc}
+Robot Design and Control Lab, open-rdc, リポジトリ\\
+\url{https://github.com/open-rdc}\\
+(最終閲覧日：\today)
+
+\bibitem{pointcloud}
+ROS wiki, pointcloud\_to\_laserscan\\
+\url{https://wiki.ros.org/pointcloud_to_laserscan}\\
+(最終閲覧日：\today)
+
+\bibitem{emcl2}
+ryuichiueda, emcl2 リポジトリ\\
+\url{https://github.com/ryuichiueda/emcl2}\\
+(最終閲覧日：\today)
+
+\bibitem{robotlocalization}
+cra-ros-pkg, robot\_localization リポジトリ\\
+\url{https://github.com/cra-ros-pkg/robot_localization}\\
+(最終閲覧日：\today)
+
+\bibitem{waypoint}
+open-rdc, waypoint\_manager リポジトリ\\
+\url{https://github.com/open-rdc/waypoint_manager}\\
+(最終閲覧日：\today)
+
+\bibitem{Cartographer}
+cartographer-project, cartographer リポジトリ\\
+\url{https://github.com/cartographer-project/cartographer}\\
+(最終閲覧日：\today)
+
+\bibitem{gimp}
+GIMP ドキュメント\\
+\url{https://www.gimp.org/}\\
+(最終閲覧日：\today)
+
+\bibitem{tukuba}
+つくばチャレンジ 2023 公式サイト\\
+\url{https://tsukubachallenge.jp/2023/}\\
+(最終閲覧日：\today)
+
+\bibitem{yolo}
+ultralytics, yolov5 リポジトリ\\
+\url{https://github.com/ultralytics/yolov5}\\
+(最終閲覧日：\today)
+
+\bibitem{nagashima}
+open-rdc, Tsukuba\_Delivery リポジトリ\\
+\url{https://github.com/open-rdc/Tsukuba_Delivery}\\
+(最終閲覧日：\today)\\
+
+\bibitem{twist}
+ROS wiki, twist\_mux\\
+\url{https://wiki.ros.org/twist_mux}\\
+(最終閲覧日：\today)
+
+\bibitem{noetic}
+ROS Noetic ドキュメント\\
+\url{https://wiki.ros.org/noetic}\\
+(最終閲覧日：\today)
+
+\bibitem{ros2}
+ROS 2 ドキュメント\\
+\url{https://docs.ros.org/en/rolling/index.html}\\
+(最終閲覧日：\today)
+
+\bibitem{JetPack}
+NVIDIA JetPack SDK ドキュメント\\
+\url{https://developer.nvidia.com/ja-jp/embedded/jetpack}\\
+(最終閲覧日：\today)
+
+\bibitem{ubuntu}
+ubuntu releases ドキュメント\\
+\url{https://releases.ubuntu.com/focal/}\\
+(最終閲覧日：\today)
+
+\bibitem{foxy}
+ROS 2 Foxy ドキュメント\\
+\url{https://docs.ros.org/en/foxy/index.html}\\
+(最終閲覧日：\today)
+
+\bibitem{rviz2}
+TurtleBot4 User Manual ドキュメント\\
+\url{https://turtlebot.github.io/turtlebot4-user-manual/software/rviz.html}\\
+(最終閲覧日：\today)
+
+\bibitem{rviz-bag}
+ros2 rviz issues\\
+\url{https://github.com/ros2/rviz/issues/787}\\
+(最終閲覧日：\today)
+
+\bibitem{nav2}
+Nav2 ドキュメント\\
+\url{https://navigation.ros.org/}\\
+(最終閲覧日：\today)
+
+\bibitem{Docker}
+Docker ドキュメント\\
+\url{https://docs.docker.jp/}\\
+(最終閲覧日：\today)
+
+\bibitem{humble}
+ROS 2 Humble ドキュメント\\
+\url{https://docs.ros.org/en/humble/index.html}\\
+(最終閲覧日：\today)
+
+\bibitem{amcl}
+Nav2 amcl ドキュメント\\
+\url{https://navigation.ros.org/configuration/packages/configuring-amcl.html}\\
+(最終閲覧日：\today)
+
+\bibitem{navfn}
+Nav2 NavFn Planner ドキュメント\\
+\url{https://navigation.ros.org/configuration/packages/configuring-navfn.html}\\
+(最終閲覧日：\today)
+
+\bibitem{ypspur}
+openspur, ypspur\_ros リポジトリ\\
+\url{https://github.com/openspur/ypspur_ros}\\
+(最終閲覧日：\today)
+
+\bibitem{icart_driver}
+open-rdc, icart\_mini\_driver リポジトリ\\
+\url{https://github.com/open-rdc/icart_mini_driver}\\
+(最終閲覧日：\today)
+
+\bibitem{bridge}
+ros2, ros1\_bridge リポジトリ\\
+\url{https://github.com/ros2/ros1_bridge}\\
+(最終閲覧日：\today)
+
+
+
+
+
+\end{thebibliography}
+\normalsize
+
+\end{document}
