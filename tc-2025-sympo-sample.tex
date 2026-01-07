@@ -1,4 +1,4 @@
-\documentclass[twocolumn, 9pt]{jsproceedings}
+\documentclass[uplatex, twocolumn, 9pt]{jsproceedings}
 \RequirePackage[l2tabu, orthodox]{nag}  % 古いコマンドやパッケージを使用した場合に警告する
 \usepackage[all, warning]{onlyamsmath}  % amsmath が提供しない数式環境を使用した場合に警告する
 \usepackage{flushend}  % 最終ページの2カラムの左右の高さを揃える
@@ -10,7 +10,7 @@
 \usepackage{graphicx}
 \usepackage[dvipdfmx,setpagesize=false]{hyperref}
 
-
+% \documentclass[twocolumn, 9pt]{jsproceedings}
 
 % タイトル
 \title{つくばチャレンジ 2025 における\\千葉工業大学未来ロボティクス学科 box2，box3チームの取り組み}
@@ -165,23 +165,38 @@ ORNE-box2を使用するチームとORNE-box3を使用するチームの2つに�
 % なお，制御用のコンピュータには，記録走行完走時に用いていた Jetson AGX Xavier を使用した．
 % 本年度の取り組みを以下で紹介する．
 
-box2チームは，つくばチャレンジ2022の本走行に参加した．
-結果として，道路端で一時停止に失敗し，記録は320[m]だった．
-一時停止に失敗した要因のひとつとして，自己位置推定の破綻が挙げられる．
-ORNE-box2では，本走行前日にロボットの制御に使用していたコンピュータであるJetson AGX Xavierが
-起動しなくなるトラブルが発生した．そのため，急遽 GIGABYTE GB-BXi7H-4500 に交換を行った．
-これにより計算が間に合わなかった可能性がある．
-しかし，つくばチャレンジ2022の記録走行では制御用のコンピュータにJetson AGX Xavierを用いて完走した．
-よって，本年度は基本的に昨年度と同様のシステムを用いて完走することを目的とした．
-本年度の取り組みを以下で紹介する．
+% box2チームは，つくばチャレンジ2022の本走行に参加した．
+% 結果として，道路端で一時停止に失敗し，記録は320[m]だった．
+% 一時停止に失敗した要因のひとつとして，自己位置推定の破綻が挙げられる．
+% ORNE-box2では，本走行前日にロボットの制御に使用していたコンピュータであるJetson AGX Xavierが
+% 起動しなくなるトラブルが発生した．そのため，急遽 GIGABYTE GB-BXi7H-4500 に交換を行った．
+% これにより計算が間に合わなかった可能性がある．
+% しかし，つくばチャレンジ2022の記録走行では制御用のコンピュータにJetson AGX Xavierを用いて完走した．
+% よって，本年度は基本的に昨年度と同様のシステムを用いて完走することを目的とした．
+% 本年度の取り組みを以下で紹介する．
+
+box2チームは, 昨2024年度に開催されたつくばチャレンジ2024の本走行に参加した. 
+結果としては, 自己位置推定の破綻により, 公園内の道路端の段差に乗り上げ, 
+経路に復帰できなくなり, 記録は1000mだった. \par
+本2025年度のbox2チームではROS Navigation stackを中心としたシステムを用い, 
+そのパラメータ調整を徹底して行うことでつくばチャレンジの完走を目標とした. 
+本2025年度の取り組みを以下で紹介する. 
+
 
 \subsubsection{センサ・システム構成}
-box2チームは，\figref{fig:box2-sensor}のように LiDAR，ホイールエンコーダ，IMU，RGBカメラというセンサ構成で実験走行および本走行に臨んだ．
+box2チームは，\figref{fig:box2-sensor}のように 
+LiDAR，ホイールエンコーダ，IMU，RGBカメラというセンサ構成で
+実験走行および本走行に臨んだ．
 特徴としては，2つの LiDAR を用いている点が挙げられる．
-上部は自己位置推定用，下部は障害物回避用と使い分けることで，自己位置推定を正確に行いつつ，
-低層の障害物などを検出して回避するという狙いがある．ここで，上部に取り付けた LiDAR は 3D-LiDAR であるが，
-pointcloud\_to\_laserscan\cite{pointcloud} により，得られた3次元点群を圧縮し，2次元の点群として利用した．
-また，ロボットの上部に取り付けたカメラは，選択課題 D1 に取り組む際に使用した．\\
+上部は自己位置推定用，下部は障害物回避用と使い分けることで，
+自己位置推定を正確に行いつつ，
+低層の障害物などを検出して回避するという狙いがある．
+ここで，上部に取り付けた LiDAR は 3D-LiDAR であるが，
+pointcloud\_to\_laserscan\cite{pointcloud} により，
+得られた3次元点群を圧縮し，2次元の点群として利用した．
+また，ロボットの上部に取り付けたカメラは，
+選択課題 D1 に取り組む際に使用した．\\
+
 
 \begin{figure}[h!]
   \centering
@@ -195,7 +210,8 @@ pointcloud\_to\_laserscan\cite{pointcloud} により，得られた3次元点群
 ロボットは，これらと作成した地図に基づき自律走行する．
 
 \begin{itemize}
-  \item 自己位置推定パッケージ：emcl2\cite{emcl2}
+  % \item 自己位置推定パッケージ：emcl2\cite{emcl2}
+  \item 自己位置推定パッケージ：amcl\cite{amcl}
   \item センサ情報統合パッケージ：robot\_localization\cite{robotlocalization}
   \item waypoint パッケージ：waypoint\_manager\cite{waypoint}
   \item global planner：dijkstra
@@ -205,155 +221,185 @@ pointcloud\_to\_laserscan\cite{pointcloud} により，得られた3次元点群
 
 
 \subsubsection{地図生成}
-自律走行時に使用する地図の作成には，Cartographer\cite{Cartographer}を用いた．
-ここで，本走行において使用した占有格子地図を\figref{fig:map}，\figref{fig:costmap}に示す．
-\figref{fig:map}は，自己位置推定に使用する地図であり，基本的には作成時のものから手を加えていない．
-\figref{fig:costmap}は，経路計画に用いる地図である．\figref{fig:map}の自己位置推定に用いる地図に
-侵入不可能な領域を設定している．これにより，ロボットは侵入不可能領域以外で
-経路を生成するようになる．さらに，領域を囲うことで，経路を計算する領域が減るため，
-コンピュータの負荷を減らすことができる．
-これらの地図は，確認走行エリア，その先から信号あり横断歩道，公園エリアのそれぞれで作成した
-地図を合成している．地図の合成や編集には，GIMP\cite{gimp}を用いた．
-なお，resolutionは 0.10[m/pixel]で，ファイルのサイズは 17.8 MBであった．
+% 自律走行時に使用する地図の作成には，
+% Cartographer\cite{Cartographer}を用いた．
+% ここで，本走行において使用した占有格子地図を
+% \figref{fig:map}，\figref{fig:costmap}に示す．
+% \figref{fig:map}は，自己位置推定に使用する地図であり，
+% 基本的には作成時のものから手を加えていない．
+% \figref{fig:costmap}は，経路計画に用いる地図である．
+% \figref{fig:map}の自己位置推定に用いる地図に
+% 侵入不可能な領域を設定している．
+% これにより，ロボットは侵入不可能領域以外で
+% 経路を生成するようになる．
+% さらに，領域を囲うことで，経路を計算する領域が減るため，
+% コンピュータの負荷を減らすことができる．
+% これらの地図は，確認走行エリア，その先から信号あり横断歩道，
+% 公園エリアのそれぞれで作成した. 
+% 地図を合成している．地図の合成や編集には，
+% GIMP\cite{gimp}を用いた．
+% なお，resolutionは 0.10[m/pixel]で，
+% ファイルのサイズは 17.8 MBであった．
+
+自律走行時に使用する地図の作成には, Slam\_Toolboxと画像編集ソフトのgimpを用いた. 
+Slam\_toolboxを用いてあらかじめコースを走行させたrosbagから, 
+複数の区間における地図を作成し, 最終的にgimpを用いてそれらの地図を合成した. 
+ここで,本走行において使用した地図を図に示す. 
+また, 地図は解像度を0.10[m/pixel]から0.17[m/pixel]に変更した. 
+これは, 経路計画に使用しているDijkstra法の計算量を減らすためである.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=90mm]{fig/map.pdf}
+  % \includegraphics[width=90mm]{fig/map.pdf}
+  \includegraphics[width=90mm]{fig/2025/tsukubamap.pdf}
   \caption{Map used for localization.}
   \label{fig:map}
 \end{figure}
-\vspace*{-2mm}
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=90mm]{fig/costmap.pdf}
-  \caption{Map used for planning.}
-  \label{fig:costmap}
-\end{figure}
+
+\subsection{AMCLのパラメータ調整}
+昨2024年度のbox2チームでは, 自己位置推定の破綻が走行失敗の要因の1つであった. 
+そのため, 本2025年度ではAMCLを含むナビゲーションのパラメータ調整を徹底した. 
+ここでは, AMCLのパラメータ調整方法について述べる. 
+方法としては, 事前にコースでロボットをマニュアル走行させ, 
+rosbagを記録する. 次に, AMCLを起動し, 
+作成した地図と記録したrosbagを入力トピックとする. 
+このとき, Rvizを用いて自己位置推定の様子を可視化する. 
+このときのスキャンデータと地図のずれ方によって, 
+オドメトリにおけるノイズのパラメータ調整を行う. 
+これにより, ロボットを何度も実環境で走行させずにAMCLのパラメータを
+最適化することができる. 
+% \vspace*{-2mm}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=90mm]{fig/costmap.pdf}
+%   \caption{Map used for planning.}
+%   \label{fig:costmap}
+% \end{figure}
 
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsubsection{選択課題 D1}
-box2チームでは，本年度から新しく追加された選択課題D1にも取り組んだ．
-ここで，課題の概要を述べる．本課題は以下の流れで行う．
+% \subsubsection{選択課題 D1}
+% box2チームでは，本年度から新しく追加された選択課題D1にも取り組んだ．
+% ここで，課題の概要を述べる．本課題は以下の流れで行う．
 
-\vspace*{1mm}
+% \vspace*{1mm}
 
-1）集荷ボックス\figref{fig:hako} (a)の待機列に整列
+% 1）集荷ボックス\figref{fig:hako} (a)の待機列に整列
 
-2）白線を認識し，その手前 1[m]以内で一時停止
+% 2）白線を認識し，その手前 1[m]以内で一時停止
 
-3）オペレータ操作により走行再開
+% 3）オペレータ操作により走行再開
 
-4）集荷ボックスに50[cm]まで接近し，3秒以上停止
+% 4）集荷ボックスに50[cm]まで接近し，3秒以上停止
 
-5）配達先ラベルを認識し，90秒以内に移動
+% 5）配達先ラベルを認識し，90秒以内に移動
 
-6）指定の宅配ボックス\figref{fig:hako} (b)を探索
+% 6）指定の宅配ボックス\figref{fig:hako} (b)を探索
 
-7）指定の宅配ボックスに50[cm]まで接近し，3秒以上停止
-\begin{figure}[h!]
-  \begin{minipage}[t]{0.47\linewidth}
-    \centering
-    \includegraphics[width=44.94mm]{fig/syuuka.pdf}
-    \caption*{\hspace*{3mm}(a) Collection box}
-  \end{minipage}
-  \hspace*{2mm}
-  \begin{minipage}[t]{0.47\linewidth}
-    \centering
-    \includegraphics[width=44.21mm]{fig/takuhai.pdf}
-    \caption*{(b) Delivery box}
-  \end{minipage}
-  \caption{Examples of collection and delivery boxes. (source:\cite{tukuba})}
-  \label{fig:hako}
-\end{figure}\vspace*{-2mm}
-次に，本課題のために取り組んだ内容を以下に述べる．
+% 7）指定の宅配ボックスに50[cm]まで接近し，3秒以上停止
+% \begin{figure}[h!]
+%   \begin{minipage}[t]{0.47\linewidth}
+%     \centering
+%     \includegraphics[width=44.94mm]{fig/syuuka.pdf}
+%     \caption*{\hspace*{3mm}(a) Collection box}
+%   \end{minipage}
+%   \hspace*{2mm}
+%   \begin{minipage}[t]{0.47\linewidth}
+%     \centering
+%     \includegraphics[width=44.21mm]{fig/takuhai.pdf}
+%     \caption*{(b) Delivery box}
+%   \end{minipage}
+%   \caption{Examples of collection and delivery boxes. (source:\cite{tukuba})}
+%   \label{fig:hako}
+% \end{figure}\vspace*{-2mm}
+% 次に，本課題のために取り組んだ内容を以下に述べる．
 
-\begin{itemize}
-  \setlength{\leftskip}{-1zw}
-  \item 集荷ボックス，宅配ボックス，配達先の認識
-\end{itemize}
-\vspace*{-2.5mm}
+% \begin{itemize}
+%   \setlength{\leftskip}{-1zw}
+%   \item 集荷ボックス，宅配ボックス，配達先の認識
+% \end{itemize}
+% \vspace*{-2.5mm}
 
-各ボックスや配達先の認識には，YOLOv5\cite{yolo}を用いた．YOLOは画像を入力とし，対象物が
-画像中のどこにあるかを表すバウンディングボックスと認識率を出力する．
-データセットは自作のものを使用した．作成したデータセットは\cite{nagashima}で公開している．
-作成の手順としては，まず ORNE-box2の上部に取り付けたカメラを使用し，公園内の配送エリアと
-千葉工業大学津田沼キャンパスで画像を収集した．
-次に，収集した画像にボックス 2つ(集荷，宅配)と配達先 3つ(a,b,c)の計5 クラスでラベル付けをした．
-合計2287個のデータセットを作成し，そのうちの2261個を訓練用，26個を検証用とした．
-訓練後は，訓練済みモデルを用いてボックスと配送先が認識できるかを検証した．
-ここで，検証結果の一例を\figref{fig:test1}，\figref{fig:test2}に示す．
-\figref{fig:test1}のように，屋内環境かつ近距離であれば，どちらも高い正確度で認識できた．
-しかし，\figref{fig:test2}の例では配達先を誤認識した．
-その要因としては\figref{fig:test1}の例に比べて，対象物とロボットの距離があることや，屋外の
-日照条件の変化によって，収集した画像との差が発生したことが考えられる．
+% 各ボックスや配達先の認識には，YOLOv5\cite{yolo}を用いた．YOLOは画像を入力とし，対象物が
+% 画像中のどこにあるかを表すバウンディングボックスと認識率を出力する．
+% データセットは自作のものを使用した．作成したデータセットは\cite{nagashima}で公開している．
+% 作成の手順としては，まず ORNE-box2の上部に取り付けたカメラを使用し，公園内の配送エリアと
+% 千葉工業大学津田沼キャンパスで画像を収集した．
+% 次に，収集した画像にボックス 2つ(集荷，宅配)と配達先 3つ(a,b,c)の計5 クラスでラベル付けをした．
+% 合計2287個のデータセットを作成し，そのうちの2261個を訓練用，26個を検証用とした．
+% 訓練後は，訓練済みモデルを用いてボックスと配送先が認識できるかを検証した．
+% ここで，検証結果の一例を\figref{fig:test1}，\figref{fig:test2}に示す．
+% \figref{fig:test1}のように，屋内環境かつ近距離であれば，どちらも高い正確度で認識できた．
+% しかし，\figref{fig:test2}の例では配達先を誤認識した．
+% その要因としては\figref{fig:test1}の例に比べて，対象物とロボットの距離があることや，屋外の
+% 日照条件の変化によって，収集した画像との差が発生したことが考えられる．
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=90mm]{fig/test1.pdf}
-  \caption{Recognition results in indoor.}
-  \label{fig:test1}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=90mm]{fig/test1.pdf}
+%   \caption{Recognition results in indoor.}
+%   \label{fig:test1}
+% \end{figure}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=90mm]{fig/test2.pdf}
-  \caption{Recognition results in real environment.}
-  \label{fig:test2}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=90mm]{fig/test2.pdf}
+%   \caption{Recognition results in real environment.}
+%   \label{fig:test2}
+% \end{figure}
 
-\begin{itemize}
-  \setlength{\leftskip}{-1zw}
-  \item ボックスに接近し，停止するシステムの作成
-\end{itemize}
-\vspace*{-2.5mm}
+% \begin{itemize}
+%   \setlength{\leftskip}{-1zw}
+%   \item ボックスに接近し，停止するシステムの作成
+% \end{itemize}
+% \vspace*{-2.5mm}
 
-配達先を認識した後の指定のボックスへの移動や接近して停止する処理に関して述べる．
-ロボットは\figref{fig:hako_act}に示すようなシステムに基づき行動する．
-本システムは，YOLOの配達先の認識結果に応じて行動を決定する．
-具体的には，配達先(a,b,c)すべてに waypointを配置し，認識した配達先以外の waypointはスキップする仕組みと
-なっている．
-ボックスへの接近は，指定の waypointに到達すると開始され，YOLOの出力であるバウンディングボックスの座標に
-基づき行われる．
-これは，ボックスが常にカメラ画像の中心に来るように速度指令値をロボットに送ることで行う．
-この速度指令はyolo\_velという名前のトピックで配信される．
-ボックスに近づいたと判断する指標は，LiDARの走査線である．
-配列中の特定の index の値がある一定値以下になったら，ロボットとボックスが 50[cm]近づいたと
-判断して停止する．
-ただし，ナビゲーションの起動中は，move\_baseに基づく速度指令であるnav\_velという名前のトピック
-が配信されている．よって，そのままでは速度指令が競合するため，どちらの速度指令を使用するかを
-twist\_mux\cite{twist}で判断し，cmd\_velという名前のトピックで配信している．
-ここで，本システムを用いた実験の様子を\figref{fig:action}に示す．
-結果的に，集荷ボックスを発見して 50[cm]以内で停止できたが，
-走行再開後に宅配ボックスの認識が途切れたため，ロボットがその場で旋回し続けた．
-その対策としては，認識が途切れてから数秒以内は行動を続けるというデッドタイムを設ける方法が考えられる．
-なお，本システムは検証段階であったため，本走行では使用していない．
+% 配達先を認識した後の指定のボックスへの移動や接近して停止する処理に関して述べる．
+% ロボットは\figref{fig:hako_act}に示すようなシステムに基づき行動する．
+% 本システムは，YOLOの配達先の認識結果に応じて行動を決定する．
+% 具体的には，配達先(a,b,c)すべてに waypointを配置し，認識した配達先以外の waypointはスキップする仕組みと
+% なっている．
+% ボックスへの接近は，指定の waypointに到達すると開始され，YOLOの出力であるバウンディングボックスの座標に
+% 基づき行われる．
+% これは，ボックスが常にカメラ画像の中心に来るように速度指令値をロボットに送ることで行う．
+% この速度指令はyolo\_velという名前のトピックで配信される．
+% ボックスに近づいたと判断する指標は，LiDARの走査線である．
+% 配列中の特定の index の値がある一定値以下になったら，ロボットとボックスが 50[cm]近づいたと
+% 判断して停止する．
+% ただし，ナビゲーションの起動中は，move\_baseに基づく速度指令であるnav\_velという名前のトピック
+% が配信されている．よって，そのままでは速度指令が競合するため，どちらの速度指令を使用するかを
+% twist\_mux\cite{twist}で判断し，cmd\_velという名前のトピックで配信している．
+% ここで，本システムを用いた実験の様子を\figref{fig:action}に示す．
+% 結果的に，集荷ボックスを発見して 50[cm]以内で停止できたが，
+% 走行再開後に宅配ボックスの認識が途切れたため，ロボットがその場で旋回し続けた．
+% その対策としては，認識が途切れてから数秒以内は行動を続けるというデッドタイムを設ける方法が考えられる．
+% なお，本システムは検証段階であったため，本走行では使用していない．
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=90mm]{fig/act.pdf}
-  \caption{Summary of the developed system.}
-  \label{fig:hako_act}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=90mm]{fig/act.pdf}
+%   \caption{Summary of the developed system.}
+%   \label{fig:hako_act}
+% \end{figure}
 
-\vspace*{-1zh}
+% \vspace*{-1zh}
 
-\begin{figure}[h]
-  \centering
-  \begin{minipage}[b]{0.45\linewidth}
-    \centering
-    \includegraphics[width=37mm]{fig/1.pdf}
-    \caption*{(a) Found the box}
-  \end{minipage} 
-  \hspace*{2mm}
-  \begin{minipage}[b]{0.45\linewidth}
-    \centering
-    \includegraphics[height=27.4mm]{fig/3.pdf}
-    \caption*{\hspace*{-1mm}(b) Stop near the box}
-  \end{minipage}
-  \caption{Verification of the developed system.}
-  \label{fig:action}
-\end{figure}
+% \begin{figure}[h]
+%   \centering
+%   \begin{minipage}[b]{0.45\linewidth}
+%     \centering
+%     \includegraphics[width=37mm]{fig/1.pdf}
+%     \caption*{(a) Found the box}
+%   \end{minipage} 
+%   \hspace*{2mm}
+%   \begin{minipage}[b]{0.45\linewidth}
+%     \centering
+%     \includegraphics[height=27.4mm]{fig/3.pdf}
+%     \caption*{\hspace*{-1mm}(b) Stop near the box}
+%   \end{minipage}
+%   \caption{Verification of the developed system.}
+%   \label{fig:action}
+% \end{figure}
 
 
 
@@ -363,17 +409,25 @@ twist\_mux\cite{twist}で判断し，cmd\_velという名前のトピックで�
 
 
 \subsubsection{本走行の結果}
-box2チームの本年度の本走行の記録は，715[m]であった．
-リタイアした地点は，公園前の信号機あり横断歩道である．
-\figref{fig:box2-result}に示すように，本来は一時停止が必要な場所で，ロボットが道路端からはみ出した．
-その要因としては，自己位置推定の破綻が挙げられる．信号機周辺は他チームのロボットや通行人，自動車など，
-環境がその都度大きく変化するため，作成した地図とマッチングしない，あるいは間違った場所でのマッチング
-が起こったのではないかと考えられる．
-なお box2チームは，8月18日に実施されたつくばチャレンジ2023EX＠イーアスつくば本走行にて完走している．
+% box2チームの本年度の本走行の記録は，715[m]であった．
+% リタイアした地点は，公園前の信号機あり横断歩道である．
+% \figref{fig:box2-result}に示すように，本来は一時停止が必要な場所で，ロボットが道路端からはみ出した．
+% その要因としては，自己位置推定の破綻が挙げられる．信号機周辺は他チームのロボットや通行人，自動車など，
+% 環境がその都度大きく変化するため，作成した地図とマッチングしない，あるいは間違った場所でのマッチング
+% が起こったのではないかと考えられる．
+% なお box2チームは，8月18日に実施されたつくばチャレンジ2023EX＠イーアスつくば本走行にて完走している．
+
+box2チームの本2025年度の本走行の記録は, 1791mであった. 
+図に示すように, ロボットが停止するべき地点で他のチームのロボットを追い越し, 
+本来の停止位置から数メートル離れた位置で停止したため, 走行を中断した. 
+要因としては, 動的障害物への対策が十分にできていなかったことが挙げられる. 
+具体的な対策としては, カメラを用いた動的障害物の検出などが求められる. 
+なお, box2チームは記録走行を突破している. 
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=90mm]{fig/result_box2_cut.pdf}
+  % \includegraphics[width=90mm]{fig/result_box2_cut.pdf}
+  \includegraphics[width=90mm]{fig/2025/box2miss.pdf}
   \caption{The location where the box2 team failed.}
   \label{fig:box2-result}
 \end{figure}
@@ -444,34 +498,34 @@ icart drive\cite{icart_driver} である．
   \label{fig:3-map}
 \end{figure}
 
-\subsubsection{信号認識}
-box3 チームでは，信号認識にも取り組んだ．
-信号の認識には，先述の選択課題 D1 と同様に YOLOv5を用いた．
-データセットには自作のものを使用した．
-作成の手順としては，まず ORNE-box3の上部に取り付けたカメラを使用し，公園前の信号機あり横断歩道で
-画像を収集した．次に，収集した画像に信号の色 2つ(青，赤)の2 クラスでラベル付けをした．
-合計600個のデータセットを作成し，そのうちの523個を訓練用，77個を検証用とした．
-訓練後は，訓練済みモデルを用いて信号の色が認識できるかを検証した．
-ここで，検証結果の一例を\figref{fig:traffic}に示す．
-結果的に，青信号と赤信号のどちらも高い正確度で認識できた．
-ただし，認識後のロボットの行動プログラムは開発していなかったため，実験走行および本走行では使用していない．
+% \subsubsection{信号認識}
+% box3 チームでは，信号認識にも取り組んだ．
+% 信号の認識には，先述の選択課題 D1 と同様に YOLOv5を用いた．
+% データセットには自作のものを使用した．
+% 作成の手順としては，まず ORNE-box3の上部に取り付けたカメラを使用し，公園前の信号機あり横断歩道で
+% 画像を収集した．次に，収集した画像に信号の色 2つ(青，赤)の2 クラスでラベル付けをした．
+% 合計600個のデータセットを作成し，そのうちの523個を訓練用，77個を検証用とした．
+% 訓練後は，訓練済みモデルを用いて信号の色が認識できるかを検証した．
+% ここで，検証結果の一例を\figref{fig:traffic}に示す．
+% 結果的に，青信号と赤信号のどちらも高い正確度で認識できた．
+% ただし，認識後のロボットの行動プログラムは開発していなかったため，実験走行および本走行では使用していない．
 
 
-\begin{figure}[h!]
-  \begin{minipage}[t]{0.47\linewidth}
-    \centering
-    \includegraphics[width=43mm]{fig/blue_cut.pdf}
-    \caption*{(a) Blue light (traffic)}
-  \end{minipage}
-  \hspace*{2mm}
-  \begin{minipage}[t]{0.47\linewidth}
-    \centering
-    \includegraphics[width=43mm]{fig/red_cut.pdf}
-    \caption*{(b) Red light (traffic)}
-  \end{minipage}
-  \caption{Recognition results in real environment.}
-  \label{fig:traffic}
-\end{figure}
+% \begin{figure}[h!]
+%   \begin{minipage}[t]{0.47\linewidth}
+%     \centering
+%     \includegraphics[width=43mm]{fig/blue_cut.pdf}
+%     \caption*{(a) Blue light (traffic)}
+%   \end{minipage}
+%   \hspace*{2mm}
+%   \begin{minipage}[t]{0.47\linewidth}
+%     \centering
+%     \includegraphics[width=43mm]{fig/red_cut.pdf}
+%     \caption*{(b) Red light (traffic)}
+%   \end{minipage}
+%   \caption{Recognition results in real environment.}
+%   \label{fig:traffic}
+% \end{figure}
 
 \subsubsection{本走行の結果}
 box3の本走行の記録は13[m]だった．
