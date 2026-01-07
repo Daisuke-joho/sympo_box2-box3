@@ -388,8 +388,8 @@ INPUT extractbb -B cropbox -O fig/box3.pdf
 OUTPUT out/tc-2025-sympo-sample.dvi
 INPUT fig/software.pdf
 INPUT extractbb -B cropbox -O fig/software.pdf
-INPUT fig/box2_sensor.pdf
-INPUT extractbb -B cropbox -O fig/box2_sensor.pdf
+INPUT fig/2025/box2.pdf
+INPUT extractbb -B cropbox -O fig/2025/box2.pdf
 INPUT /usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm

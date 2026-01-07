@@ -1,11 +1,11 @@
 # Fdb version 3
-["dvipdf"] 1767766117 "out/tc-2025-sympo-sample.dvi" "out/tc-2025-sympo-sample.pdf" "out/tc-2025-sympo-sample" 1767766117
-  "out/tc-2025-sympo-sample.dvi" 1767766116 58692 73d466854f1c18c3cb8b69fe3e048802 "latex"
+["dvipdf"] 1767767773 "out/tc-2025-sympo-sample.dvi" "out/tc-2025-sympo-sample.pdf" "out/tc-2025-sympo-sample" 1767767774
+  "out/tc-2025-sympo-sample.dvi" 1767767773 58688 322ce2d3106063c5824a83b8b174e19e "latex"
   (generated)
   "out/tc-2025-sympo-sample.pdf"
-["latex"] 1767766113 "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" "out/tc-2025-sympo-sample.dvi" "tc-2025-sympo-sample" 1767766117
+["latex"] 1767767771 "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" "out/tc-2025-sympo-sample.dvi" "tc-2025-sympo-sample" 1767767774
   "/etc/texmf/web2c/texmf.cnf" 1765959499 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" 1767766109 36781 778760f80a701ac14768621be0ea23f7 ""
+  "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" 1767767769 36779 c2680cf8d8ba34b26d520fb4022a70ce ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm" 1136768653 6880 f19b8995b61c334d78fc734065f6b4d4 ""
@@ -148,12 +148,12 @@
   "/usr/share/texmf/tex/latex/lm/t1lmtt.fd" 1256929440 2681 354015af3b61e7be30009f084986375a ""
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/web2c/euptex/uplatex.fmt" 1765961038 10610984 323fc35dd23fccb490d9222db9d0809a ""
+  "fig/2025/box2.pdf" 1767767700 311610 d7ecc0ab2d650ee50c648e9dcfc865aa ""
   "fig/2025/box2miss.pdf" 1767765368 225757 8f51978b40aee124f1b8cbed37c0a13a ""
   "fig/2025/tsukubamap.pdf" 1767765692 51401 d1c92407e0f1c3e5f4d1b2703594f19f ""
   "fig/3-map.pdf" 1766216299 30118 f2e7b249ea9c04537c1d02bd4bf0727a ""
   "fig/box.pdf" 1766216299 106922 07407d05be89e855470c1b49755ea841 ""
   "fig/box2.pdf" 1766216299 826800 2280a5f8ccbdbc39bb4e72ab3fb40768 ""
-  "fig/box2_sensor.pdf" 1766216299 490375 facd989deca73dff677840afb73d3999 ""
   "fig/box3.pdf" 1766216299 175320 3da2147ad78390a17a36b0102c9c43b6 ""
   "fig/box3_1.pdf" 1766216299 242213 f1b21804e5ff38b7021a30d405f44af4 ""
   "fig/box3_2.pdf" 1766216299 231342 3b9964bebb01c3605e4f9936144790b7 ""
@@ -163,11 +163,11 @@
   "fig/human.pdf" 1766216299 1736035 1986d19a52cbf444be200cb0e58c8684 ""
   "fig/software.pdf" 1766216299 26385 b9aafcd4334f8dbbb86a7082786e2290 ""
   "jsproceedings.cls" 1766216299 23503 31ea80bc6a420cac8ffa562f1f435009 ""
-  "out/tc-2025-sympo-sample.aux" 1767766116 7238 0584c5b6f344b73e393b0e836a4782e5 "latex"
-  "out/tc-2025-sympo-sample.out" 1767766116 577 e72a2b94038c755716dbbccf0557c1de "latex"
-  "tc-2025-sympo-sample.tex" 1767766109 36781 778760f80a701ac14768621be0ea23f7 ""
+  "out/tc-2025-sympo-sample.aux" 1767767773 7238 0584c5b6f344b73e393b0e836a4782e5 "latex"
+  "out/tc-2025-sympo-sample.out" 1767767773 577 e72a2b94038c755716dbbccf0557c1de "latex"
+  "tc-2025-sympo-sample.tex" 1767767769 36779 c2680cf8d8ba34b26d520fb4022a70ce ""
   (generated)
-  "out/tc-2025-sympo-sample.out"
+  "out/tc-2025-sympo-sample.dvi"
   "out/tc-2025-sympo-sample.aux"
   "out/tc-2025-sympo-sample.log"
-  "out/tc-2025-sympo-sample.dvi"
+  "out/tc-2025-sympo-sample.out"
