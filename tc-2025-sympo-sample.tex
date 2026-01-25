@@ -233,7 +233,7 @@ pointcloud\_to\_laserscan\cite{pointcloud} により，
   \label{fig:box2-sensor}
 \end{figure}
 
-
+\vspace{-4mm}
 さらに，使用したパッケージやアルゴリズムを以下に示す．
 ロボットは，これらと作成した地図に基づき自律走行する．
 
@@ -269,8 +269,8 @@ pointcloud\_to\_laserscan\cite{pointcloud} により，
 % なお，resolutionは 0.10[m/pixel]で，
 % ファイルのサイズは 17.8 MBであった．
 
-自律走行時に使用する地図の作成には, Slam\_Toolboxと画像編集ソフトのgimpを用いた. 
-Slam\_toolboxを用いてあらかじめコースを走行させたrosbagから, 
+自律走行時に使用する地図の作成には, Slam\_Toolbox\cite{Slam_Toolbox}と画像編集ソフトのgimp\cite{gimp}を用いた. 
+Slam\_Toolboxを用いてあらかじめコースを走行させたrosbagから, 
 複数の区間における地図を作成し, 最終的にgimpを用いてそれらの地図を合成した. 
 ここで,本走行において使用した地図を図に示す. 
 また, 地図は解像度を0.10[m/pixel]から0.17[m/pixel]に変更した. 
@@ -305,7 +305,7 @@ box2チームの本2025年度の本走行の記録は, 1791[m]であった.
 本来の停止位置から数メートル離れた位置で停止したため, 走行を中断した. 
 要因としては, 動的障害物への対策が十分にできていなかったことが挙げられる. 
 具体的な対策としては, カメラを用いた動的障害物の検出などが求められる. 
-なお, box2チームは記録走行を突破している. 
+なお, box2チームは確認走行を突破している. 
 
 \begin{figure}[h!]
   \centering
@@ -653,6 +653,11 @@ amcl ドキュメント\\
 (最終閲覧日：\today)
 
 
+
+\bibitem{Slam_Toolbox}
+Slam\_Toolbox ドキュメント\\
+\url{https://github.com/SteveMacenski/slam_toolbox}\\
+(最終閲覧日：\today)
 
 
 \bibitem{emcl2_ros2}
