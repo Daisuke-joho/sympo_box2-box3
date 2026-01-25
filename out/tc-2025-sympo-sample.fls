@@ -294,8 +294,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlminr-v.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlminr-h.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf/cidjmr2-v.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf/cidjmr2-h.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlminr-v.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlminr-h.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
@@ -383,8 +381,8 @@ INPUT fig/box.pdf
 INPUT extractbb -B cropbox -O fig/box.pdf
 INPUT fig/box2.pdf
 INPUT extractbb -B cropbox -O fig/box2.pdf
-INPUT fig/box3.pdf
-INPUT extractbb -B cropbox -O fig/box3.pdf
+INPUT fig/2025/fig_2025/box3_2025.pdf
+INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_2025.pdf
 OUTPUT out/tc-2025-sympo-sample.dvi
 INPUT fig/software.pdf
 INPUT extractbb -B cropbox -O fig/software.pdf
@@ -397,20 +395,18 @@ INPUT fig/2025/tsukubamap.pdf
 INPUT extractbb -B cropbox -O fig/2025/tsukubamap.pdf
 INPUT fig/2025/box2miss.pdf
 INPUT extractbb -B cropbox -O fig/2025/box2miss.pdf
-INPUT fig/box3_sensor.pdf
-INPUT extractbb -B cropbox -O fig/box3_sensor.pdf
-INPUT fig/box3_system.pdf
-INPUT extractbb -B cropbox -O fig/box3_system.pdf
-INPUT fig/3-map.pdf
-INPUT extractbb -B cropbox -O fig/3-map.pdf
-INPUT fig/human.pdf
-INPUT extractbb -B cropbox -O fig/human.pdf
-INPUT fig/box3_1.pdf
-INPUT extractbb -B cropbox -O fig/box3_1.pdf
-INPUT fig/box3_2.pdf
-INPUT extractbb -B cropbox -O fig/box3_2.pdf
-INPUT fig/box3_3.pdf
-INPUT extractbb -B cropbox -O fig/box3_3.pdf
+INPUT fig//2025/fig_2025/box3_2025_sensor.pdf
+INPUT extractbb -B cropbox -O fig//2025/fig_2025/box3_2025_sensor.pdf
+INPUT fig/2025/fig_2025/box3_system.pdf
+INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_system.pdf
+INPUT fig/2025/fig_2025/GLIM_3D.pdf
+INPUT extractbb -B cropbox -O fig/2025/fig_2025/GLIM_3D.pdf
+INPUT fig/2025/fig_2025/box3_map.pdf
+INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_map.pdf
+INPUT fig/2025/fig_2025/box3_map_keepout.pdf
+INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_map_keepout.pdf
+INPUT fig/2025/fig_2025/box3_fail.pdf
+INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_fail.pdf
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlgothr-v.tfm
