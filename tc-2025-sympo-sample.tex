@@ -17,7 +17,7 @@
 
 % \author{○今井 悠月，井口 颯人，樋高 聖人，春山 健太，藤原 柾，\CID{8705}橋 祐樹，白須 和暉，野村 駿斗，
 % 望月 悠矢，\\馬場 琉生，村林 孝太郎，桜井 真希，中村 雄一，長島 昂生，\\上田 隆一，林原 靖男（千葉工大）}
-\author{○塩田 大輔 ，吉野 泰生, 鈴木 修馬，塩沢 悠星，小山 雄矢，會田 雅音，佐藤 蓮，坪内 優輝，\\上田 隆一，林原 靖男（千葉工大）}
+\author{○塩田 大輔，鈴木 修馬，塩沢 悠星，吉野 泰生，小山 雄矢，會田 雅音，佐藤 蓮\\上田 隆一，林原 靖男（千葉工大）}
 \etitle{The activities of the Advanced Robotics Department box2 and box3 team of Chiba Institute of Technology in the Tsukuba Challenge 2025}
 
 % \eauthor{Yuzuki IMAI, Hayato IGUCHI, Masato HIDAKA, Kenta HARUYAMA, Masaki FUJIWARA, \\Yuki TAKAHASHI,
@@ -333,21 +333,21 @@ box3 チームは，この ROS 2 移行後のシステムを使用し，
 昨2024年度よりつくばチャレンジの完走を目指して活動を続けている．
 以下では，本2025年度における本チームの取り組みについて述べる．
 
-\subsubsection{システムの開発環境}
-ORNE-box3 では，制御コンピュータに Jetson Orin NX を用いている．
-Jetson の OS である JetPack\cite{JetPack}は，現行のものでは，Ubuntu 20.04\cite{ubuntu} がベース
-となっており，それに対応する ROS 2 のバージョンは Foxy\cite{foxy} である．しかし，Foxy では ROS 2 の
-トピックを可視化するツールである Rviz2\cite{rviz2} のバグ\cite{rviz-bag}があることや，
-Nav2\cite{nav2} の機能が制限されること，サポート期限が間近に迫っていることなどの問題があった．
+% \subsubsection{システムの開発環境}
+% ORNE-box3 では，制御コンピュータに Jetson Orin NX を用いている．
+% Jetson の OS である JetPack\cite{JetPack}は，現行のものでは，Ubuntu 20.04\cite{ubuntu} がベース
+% となっており，それに対応する ROS 2 のバージョンは Foxy\cite{foxy} である．しかし，Foxy では ROS 2 の
+% トピックを可視化するツールである Rviz2\cite{rviz2} のバグ\cite{rviz-bag}があることや，
+% Nav2\cite{nav2} の機能が制限されること，サポート期限が間近に迫っていることなどの問題があった．
 
-これらの問題を解決するため，開発環境をネイティブからDocker\cite{Docker}へ移行した．
-これにより，ネイティブでは使用できなかった Foxy 以降のバージョンが使用可能となった．
-また，Dockerではイメージごとバックアップできるため，不測の事態に対してもシステムの復旧が容易であった．
-本チームは Docker 環境を用いて ROS 2 Humble\cite{humble}で開発を行った．
+% これらの問題を解決するため，開発環境をネイティブからDocker\cite{Docker}へ移行した．
+% これにより，ネイティブでは使用できなかった Foxy 以降のバージョンが使用可能となった．
+% また，Dockerではイメージごとバックアップできるため，不測の事態に対してもシステムの復旧が容易であった．
+% 本チームは Docker 環境を用いて ROS 2 Humble\cite{humble}で開発を行った．
 
 
 \subsubsection{センサ・システム構成}
-box3 チームは，\figref{fig:box3-sensor}のように 3C-LiDAR，ホイールエンコーダ，IMUという
+box3 チームは，\figref{fig:box3-sensor}のように 3D-LiDAR，ホイールエンコーダ，IMUという
 センサ構成で実験走行および本走行に臨んだ．
 % box2 チームと異なり，用いたLiDAR は 1 つである．
 % ロボットの上部に取り付けたカメラは，信号認識に使用した．
@@ -514,21 +514,21 @@ box3チームの本走行の記録は164.4[m]であった.
 
 \footnotesize
 \begin{thebibliography}{99}
-\bibitem{sympo2024}
+\bibitem{sympo2024}%1
 鈴木修馬，落合拓海，藤原柾，馬場琉生，池田晃輝，石黒巧，柳大地，上田隆一，林原 靖男　: 
 % 今井 悠月，井口 颯人，樋高 聖人，春山 健太，藤原 柾，\CID{8705}橋 祐樹，白須 和暉，野村 駿斗，望月 悠矢，馬場 琉生，村林 孝太郎，桜井 真希，中村 雄一，長島 昂生，上田 隆一，林原 靖男　: 
 ”つくばチャレンジ2024における千葉工業大学未来ロボティクス学科 box2, box3 チームの取り組み”，つくばチャレンジ2024シンポジウム，(2024)
 
-\bibitem{box}
+\bibitem{box}%2
 井口 颯人, 石江 義規, 樋高 聖人, 上田 隆一, 林原 靖男　: “ 屋外自律移動ロ
 ボットプラットフォーム ORNE-box の開発 ”, 3H2-03 , SI2021(2021)
 
-\bibitem{box-data}
+\bibitem{box-data}%3
 open-rdc, orne-box, wiki\\
 \url{https://github.com/open-rdc/orne-box/wiki}\\
 (最終閲覧日：\today)
 
-\bibitem{icart}
+\bibitem{icart}%4
 T-frog Project\\
 \url{https://t-frog.com/forums/forum.php?ml=icart-mini-devel}\\
 (最終閲覧日：\today)
@@ -563,10 +563,15 @@ ROS wiki, pointcloud\_to\_laserscan\\
 \url{https://wiki.ros.org/pointcloud_to_laserscan}\\
 (最終閲覧日：\today)
 
-\bibitem{mcl_3dl}
-at-wat, mcl\_3dl リポジトリ\\
-\url{https://github.com/at-wat/mcl_3dl}\\
+\bibitem{amcl}
+amcl ドキュメント\\
+\url{https://robo-marc.github.io/navigation_documents/amcl.html}\\
 (最終閲覧日：\today)
+
+% \bibitem{mcl_3dl}
+% at-wat, mcl\_3dl リポジトリ\\
+% \url{https://github.com/at-wat/mcl_3dl}\\
+% (最終閲覧日：\today)
 
 \bibitem{robotlocalization}
 cra-ros-pkg, robot\_localization リポジトリ\\
@@ -578,20 +583,17 @@ open-rdc, waypoint\_manager リポジトリ\\
 \url{https://github.com/open-rdc/waypoint_manager}\\
 (最終閲覧日：\today)
 
-\bibitem{Cartographer}
-cartographer-project, cartographer リポジトリ\\
-\url{https://github.com/cartographer-project/cartographer}\\
+\bibitem{Slam_Toolbox}
+Slam\_Toolbox ドキュメント\\
+\url{https://github.com/SteveMacenski/slam_toolbox}\\
 (最終閲覧日：\today)
 
-\bibitem{pcl}
-PointCloudLibrary, pcl リポジトリ\\
-\url{https://github.com/PointCloudLibrary/pcl}\\
-(最終閲覧日：\today)
 
 \bibitem{gimp}
 GIMP ドキュメント\\
 \url{https://www.gimp.org/}\\
 (最終閲覧日：\today)
+
 
 \bibitem{ros2}
 ROS 2 ドキュメント\\
@@ -603,72 +605,9 @@ ROS Noetic ドキュメント\\
 \url{https://wiki.ros.org/noetic}\\
 (最終閲覧日：\today)
 
-\bibitem{JetPack}
-NVIDIA JetPack SDK ドキュメント\\
-\url{https://developer.nvidia.com/ja-jp/embedded/jetpack}\\
-(最終閲覧日：\today)
-
-\bibitem{ubuntu}
-ubuntu releases ドキュメント\\
-\url{https://releases.ubuntu.com/focal/}\\
-(最終閲覧日：\today)
-
-\bibitem{foxy}
-ROS 2 Foxy ドキュメント\\
-\url{https://docs.ros.org/en/foxy/index.html}\\
-(最終閲覧日：\today)
-
-\bibitem{rviz2}
-TurtleBot4 User Manual ドキュメント\\
-\url{https://turtlebot.github.io/turtlebot4-user-manual/software/rviz.html}\\
-(最終閲覧日：\today)
-
-\bibitem{rviz-bag}
-ros2 rviz issues\\
-\url{https://github.com/ros2/rviz/issues/787}\\
-(最終閲覧日：\today)
-
-\bibitem{nav2}
-Nav2 ドキュメント\\
-\url{https://navigation.ros.org/}\\
-(最終閲覧日：\today)
-
-\bibitem{Docker}
-Docker ドキュメント\\
-\url{https://docs.docker.jp/}\\
-(最終閲覧日：\today)
-
-\bibitem{humble}
-ROS 2 Humble ドキュメント\\
-\url{https://docs.ros.org/en/humble/index.html}\\
-(最終閲覧日：\today)
-
-\bibitem{JetPack6}
-NVIDIA JetPack SDK 6.0 ドキュメント\\
-\url{https://developer.nvidia.com/embedded/jetpack-sdk-60}\\
-(最終閲覧日：\today)
-
-\bibitem{amcl}
-amcl ドキュメント\\
-\url{https://robo-marc.github.io/navigation_documents/amcl.html}\\
-(最終閲覧日：\today)
-
-
-
-\bibitem{Slam_Toolbox}
-Slam\_Toolbox ドキュメント\\
-\url{https://github.com/SteveMacenski/slam_toolbox}\\
-(最終閲覧日：\today)
-
-
 \bibitem{emcl2_ros2}
 CIT-Autonomous-Robot-Lab, emcl2\_ros2 リポジトリ\\
 \url{https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2}\\
-(最終閲覧日：\today)
-
-\bibitem{navfn}
-Nav2 NavFn Planner ドキュメント\\
-\url{https://docs.nav2.org/configuration/packages/configuring-navfn.html}\\
 (最終閲覧日：\today)
 
 \bibitem{ypspur}
@@ -681,45 +620,108 @@ open-rdc, icart\_mini\_driver リポジトリ\\
 \url{https://github.com/open-rdc/icart_mini_driver}\\
 (最終閲覧日：\today)
 
+
 \bibitem{GLIM}
 GLIM リポジトリ//
 \url{https://github.com/koide3/glim}\\
 (最終閲覧日：\today)
 
-\bibitem{yolov5}
-ultralytics, yolov5 リポジトリ\\
-\url{https://github.com/ultralytics/yolov5}\\
-(最終閲覧日：\today)
+\end{thebibliography}
+\normalsize
 
-\bibitem{yolov8}
-ultralytics, yolov8 リポジトリ\\
-\url{https://github.com/ultralytics/ultralytics}\\
-(最終閲覧日：2024年7月2日)
+\end{document}
+% \bibitem{pcl}
+% PointCloudLibrary, pcl リポジトリ\\
+% \url{https://github.com/PointCloudLibrary/pcl}\\
+% (最終閲覧日：\today)
 
-\bibitem{tensorrt}
-NVIDIA TensorRT SDK ドキュメント\\
-\url{https://developer.nvidia.com/tensorrt}\\
-(最終閲覧日：\today)
 
-\bibitem{pytorch}
-PyTorch ドキュメント\\
-\url{https://pytorch.org}\\
-(最終閲覧日：\today)
 
-\bibitem{dockerhub-jetson-image}
-Docker Hub latest-jetson-jetpack6 公式サイト\\
-\url{https://hub.docker.com/layers/ultralytics/ultralytics/latest-jetson-jetpack6/images}\\
-(最終閲覧日：\today)
+% \bibitem{JetPack}
+% NVIDIA JetPack SDK ドキュメント\\
+% \url{https://developer.nvidia.com/ja-jp/embedded/jetpack}\\
+% (最終閲覧日：\today)
 
-\bibitem{traffic-system}
-open-rdc, cross\_traffic\_manager\_cpp リポジトリ\\
-\url{https://github.com/open-rdc/cross_traffic_manager_cpp}\\
-(最終閲覧日：\today)
+% \bibitem{ubuntu}
+% ubuntu releases ドキュメント\\
+% \url{https://releases.ubuntu.com/focal/}\\
+% (最終閲覧日：\today)
 
-\bibitem{tukuba}
-つくばチャレンジ 2024 公式サイト\\
-\url{https://tsukubachallenge.jp/2024}\\
-(最終閲覧日：\today)
+% \bibitem{foxy}
+% ROS 2 Foxy ドキュメント\\
+% \url{https://docs.ros.org/en/foxy/index.html}\\
+% (最終閲覧日：\today)
+
+% \bibitem{rviz2}
+% TurtleBot4 User Manual ドキュメント\\
+% \url{https://turtlebot.github.io/turtlebot4-user-manual/software/rviz.html}\\
+% (最終閲覧日：\today)
+
+% \bibitem{rviz-bag}
+% ros2 rviz issues\\
+% \url{https://github.com/ros2/rviz/issues/787}\\
+% (最終閲覧日：\today)
+
+% \bibitem{nav2}
+% Nav2 ドキュメント\\
+% \url{https://navigation.ros.org/}\\
+% (最終閲覧日：\today)
+
+% \bibitem{Docker}
+% Docker ドキュメント\\
+% \url{https://docs.docker.jp/}\\
+% (最終閲覧日：\today)
+
+% \bibitem{humble}
+% ROS 2 Humble ドキュメント\\
+% \url{https://docs.ros.org/en/humble/index.html}\\
+% (最終閲覧日：\today)
+
+% \bibitem{JetPack6}
+% NVIDIA JetPack SDK 6.0 ドキュメント\\
+% \url{https://developer.nvidia.com/embedded/jetpack-sdk-60}\\
+% (最終閲覧日：\today)
+
+% \bibitem{navfn}
+% Nav2 NavFn Planner ドキュメント\\
+% \url{https://docs.nav2.org/configuration/packages/configuring-navfn.html}\\
+% (最終閲覧日：\today)
+
+
+% \bibitem{yolov5}
+% ultralytics, yolov5 リポジトリ\\
+% \url{https://github.com/ultralytics/yolov5}\\
+% (最終閲覧日：\today)
+
+% \bibitem{yolov8}
+% ultralytics, yolov8 リポジトリ\\
+% \url{https://github.com/ultralytics/ultralytics}\\
+% (最終閲覧日：2024年7月2日)
+
+% \bibitem{tensorrt}
+% NVIDIA TensorRT SDK ドキュメント\\
+% \url{https://developer.nvidia.com/tensorrt}\\
+% (最終閲覧日：\today)
+
+% \bibitem{pytorch}
+% PyTorch ドキュメント\\
+% \url{https://pytorch.org}\\
+% (最終閲覧日：\today)
+
+% \bibitem{dockerhub-jetson-image}
+% Docker Hub latest-jetson-jetpack6 公式サイト\\
+% \url{https://hub.docker.com/layers/ultralytics/ultralytics/latest-jetson-jetpack6/images}\\
+% (最終閲覧日：\today)
+
+% \bibitem{traffic-system}
+% open-rdc, cross\_traffic\_manager\_cpp リポジトリ\\
+% \url{https://github.com/open-rdc/cross_traffic_manager_cpp}\\
+% (最終閲覧日：\today)
+
+% \bibitem{tukuba}
+% つくばチャレンジ 2024 公式サイト\\
+% \url{https://tsukubachallenge.jp/2024}\\
+% (最終閲覧日：\today)
 
 
 
@@ -731,7 +733,10 @@ open-rdc, cross\_traffic\_manager\_cpp リポジトリ\\
 
 
 
-
+% \bibitem{Cartographer}
+% cartographer-project, cartographer リポジトリ\\
+% \url{https://github.com/cartographer-project/cartographer}\\
+% (最終閲覧日：\today)
 
 % \footnotesize
 % \begin{thebibliography}{99}
