@@ -1,11 +1,11 @@
 # Fdb version 3
-["dvipdf"] 1769567063 "out/tc-2025-sympo-sample.dvi" "out/tc-2025-sympo-sample.pdf" "out/tc-2025-sympo-sample" 1769567063
-  "out/tc-2025-sympo-sample.dvi" 1769567062 51748 3fc8cb99230713cfcae47b0c9c6799fc "latex"
+["dvipdf"] 1769759871 "out/tc-2025-sympo-sample.dvi" "out/tc-2025-sympo-sample.pdf" "out/tc-2025-sympo-sample" 1769759872
+  "out/tc-2025-sympo-sample.dvi" 1769759871 52188 26808ca8a34f7bd7bc03931560642dd3 "latex"
   (generated)
   "out/tc-2025-sympo-sample.pdf"
-["latex"] 1769567061 "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" "out/tc-2025-sympo-sample.dvi" "tc-2025-sympo-sample" 1769567063
+["latex"] 1769759868 "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" "out/tc-2025-sympo-sample.dvi" "tc-2025-sympo-sample" 1769759872
   "/etc/texmf/web2c/texmf.cnf" 1765959499 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" 1769567060 43925 bcd3609e67b1b7901a72fa71b685f8e6 ""
+  "/home/daisuke/Thesis_ws/src/sympo_box2-box3/tc-2025-sympo-sample.tex" 1769759868 44615 cc57bfce84cbd0f4d8d67ae20da409a9 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm" 1136768653 6880 f19b8995b61c334d78fc734065f6b4d4 ""
@@ -133,6 +133,7 @@
   "/usr/share/texlive/texmf-dist/tex/platex/jsclasses/jslogo.sty" 1564091273 6025 c6eb7b869bc73b37a7116f5af977422f ""
   "/usr/share/texlive/texmf-dist/tex/platex/pxchfon/pxchfon.sty" 1580595237 75940 55972febb23d2299f4b4807872375e1c ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
+  "/usr/share/texmf/fonts/tfm/public/lm/ec-lmtt10.tfm" 1254938640 1372 2ef2c2b492b3c4cd7879fe083abbb061 ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmtt8.tfm" 1254938640 1380 64228d979098ac090aa3f98d5aa8ad3e ""
   "/usr/share/texmf/fonts/tfm/public/lm/rm-lmss10.tfm" 1254938640 10976 59d4d2acacc56ba9abc92645023932ec ""
   "/usr/share/texmf/fonts/tfm/public/lm/rm-lmss8.tfm" 1254938640 10976 d5243dcaf5ba5ee7825c8438c6b7a7ea ""
@@ -160,11 +161,11 @@
   "fig/box2.pdf" 1766216299 826800 2280a5f8ccbdbc39bb4e72ab3fb40768 ""
   "fig/software.pdf" 1766216299 26385 b9aafcd4334f8dbbb86a7082786e2290 ""
   "jsproceedings.cls" 1766216299 23503 31ea80bc6a420cac8ffa562f1f435009 ""
-  "out/tc-2025-sympo-sample.aux" 1769567062 6607 124178385ac6ab7bd86ecb1efae3ee2d "latex"
-  "out/tc-2025-sympo-sample.out" 1769567062 577 e72a2b94038c755716dbbccf0557c1de "latex"
-  "tc-2025-sympo-sample.tex" 1769567060 43925 bcd3609e67b1b7901a72fa71b685f8e6 ""
+  "out/tc-2025-sympo-sample.aux" 1769759871 6607 124178385ac6ab7bd86ecb1efae3ee2d "latex"
+  "out/tc-2025-sympo-sample.out" 1769759871 577 e72a2b94038c755716dbbccf0557c1de "latex"
+  "tc-2025-sympo-sample.tex" 1769759868 44615 cc57bfce84cbd0f4d8d67ae20da409a9 ""
   (generated)
-  "out/tc-2025-sympo-sample.log"
-  "out/tc-2025-sympo-sample.aux"
   "out/tc-2025-sympo-sample.dvi"
   "out/tc-2025-sympo-sample.out"
+  "out/tc-2025-sympo-sample.aux"
+  "out/tc-2025-sympo-sample.log"

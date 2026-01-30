@@ -393,6 +393,9 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm
 INPUT fig/2025/tsukubamap.pdf
 INPUT extractbb -B cropbox -O fig/2025/tsukubamap.pdf
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt10.tfm
 INPUT fig/2025/box2miss.pdf
 INPUT extractbb -B cropbox -O fig/2025/box2miss.pdf
 INPUT fig//2025/fig_2025/box3_2025_sensor.pdf
@@ -407,8 +410,6 @@ INPUT fig/2025/fig_2025/box3_map_keepout.pdf
 INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_map_keepout.pdf
 INPUT fig/2025/fig_2025/box3_fail.pdf
 INPUT extractbb -B cropbox -O fig/2025/fig_2025/box3_fail.pdf
-INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
-INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlgothr-v.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/japanese-otf-uptex/upnmlgothr-h.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt8.tfm
